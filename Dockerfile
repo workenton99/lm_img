@@ -15,13 +15,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # 2. Install Ollama
-RUN curl -fsSL https://ollama.com | sh
+RUN curl -fsSL https://ollama.com/install.sh | sh
 
 # 3. Install ComfyUI in an isolated virtual environment
-RUN git clone --depth 1 https://github.com /opt/comfyui && \
+RUN git clone --depth 1 https://github.com/Comfy-Org/ComfyUI /opt/comfyui && \
     python3.11 -m venv /opt/comfyui/venv && \
     /opt/comfyui/venv/bin/pip install --no-cache-dir --upgrade pip && \
-    /opt/comfyui/venv/bin/pip install --no-cache-dir torch torchvision torchaudio --index-url https://pytorch.org && \
+    /opt/comfyui/venv/bin/pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128/ && \
     /opt/comfyui/venv/bin/pip install --no-cache-dir -r /opt/comfyui/requirements.txt
 
 # 4. Install Open WebUI in an isolated virtual environment
